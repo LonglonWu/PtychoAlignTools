@@ -729,7 +729,7 @@ class PtychoAlign(object):
     ##            print img0.shape, img1.shape, s.shape
 ##                return (img0 + img1) / s
 ##                return (img0 + img1)
-                return (img0 + img1) / (2*s)
+                return (img0 + img1) / (s)
             
     def get_xy_pos(self):
         x_pos = np.zeros((12,))
