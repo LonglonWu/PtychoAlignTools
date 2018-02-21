@@ -71,7 +71,7 @@ Once opened, the GUI will initialize like shown below:
   * place a screenshot.
 * If a mask is loaded it will also be used on the display of the Global Image.
 
-#**GK operation**
+**GK operation**
 
 
 ## Credits and References
