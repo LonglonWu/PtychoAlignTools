@@ -106,6 +106,7 @@ class PtychoAlign(object):
 
         # New application instance
         self.app = QtGui.QApplication([])
+        self.app.setWindowIcon(QtGui.QIcon('./pictures/icon.png'))
         PyQt_version = str(self.app)
         print type(PyQt_version), PyQt_version
 
