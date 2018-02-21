@@ -67,7 +67,7 @@ Once opened, the GUI will initialize like shown below:
 ## Credits and References
 
 Publications:
-* Refining scan positions in Ptychography by using multiple metrics and Machine Learning (Submitted to [JINST](https://jinst.sissa.it/jinst/ ))
+* Refining scan positions in Ptychography by using multiple metrics and Machine Learning (Submitted to [JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about))
 
 Francesco Guzzi, George Kourousias, Fulvio Bille, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli and Sergio Carrato
 
