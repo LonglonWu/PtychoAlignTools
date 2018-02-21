@@ -67,7 +67,7 @@ Once opened, the GUI will initialize like shown below:
 
 **Load Mask**
 * This feature allows a user to pick a mask and apply it to the selected probes in order improve the refinement of the positions. 
-* Loading the "filter_gaussian_sigma20.png" mask provided in "./sample-data/masks" and setting the operation dropdown menu to "GK" give us the following:
+* Loading the "filter_gaussian_sigma20.png" mask provided in [masks](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/sample-data/masks) and setting the operation dropdown menu to "GK" give us the following:
   * place a screenshot.
 * If a mask is loaded it will also be used on the display of the Global Image.
 
