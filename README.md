@@ -54,7 +54,7 @@ Once opened, the GUI will initialize like shown below:
 * The "Pairwise Alignment View" window display the selected images by doing an operation (Multiplication, Division, Addition, Subtraction, GK) between them.
 
 **Load and Save Alignment**
-* By clicking on "Load Alignment" button a file dialog will prompt. It allows to load a ".npy" file (numpy binary file) containing positions of previous alignment. We provide two sample files at "./sample-data/probe-positions/".
+* By clicking on "Load Alignment" button a file dialog will prompt. It allows to load a ".npy" file (numpy binary file) containing positions of previous alignment. We provide two sample files at [probe-positions](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/sample-data/probe-positions).
 * The "Save Alignment" button allows to save the current alignment (displayed in the table at the "Positions" window) as a ".npy" file.
 * See [numpy documentation](https://docs.scipy.org/doc/numpy-1.13.0/reference/routines.io.html) for details about ".npy" extension.
 
