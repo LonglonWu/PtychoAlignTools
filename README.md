@@ -1,3 +1,4 @@
+
 # Ptychography Alignment Tools
 
 
@@ -61,15 +62,23 @@ Once opened, the GUI will initialize like shown below:
 
 **Preview Global Image**
 * Based on the current positions, combine all the 12 probes and show a preview of the total alignment.
+* ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
 
-## Examples
+**Load Mask**
+* This feature allows a user to pick a mask and apply it to the selected probes in order improve the refinement of the positions. 
+* Loading the "filter_gaussian_sigma20.png" mask provided in "./sample-data/masks" and setting the operation dropdown menu to "GK" give us the following:
+  * place a screenshot.
+* If a mask is loaded it will also be used on the display of the Global Image.
+
+**GK operation**
+
 
 ## Credits and References
 
 Publications:
 * Refining scan positions in Ptychography by using multiple metrics and Machine Learning (Submitted to [JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about))
 
-Francesco Guzzi, George Kourousias, Fulvio Bille, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli and Sergio Carrato
+Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli and Sergio Carrato
 
 The software has been developed by the authors, members of the [Elettra Scientific Computing Team](https://www.elettra.trieste.it/it/lightsources/labs-and-services/scientific-computing/scientific-computing.html) and the [Image Processing Laboratory](https://www2.units.it/ipl/index.htm)  from the  [University of Trieste](https://www.units.it/).
 
