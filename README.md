@@ -30,8 +30,9 @@ cd workdir
 git clone url
 
 ```
-To start the GUI type:
+To start the GUI change to src directory and lunch with Python:
 ```
+cd PtychoAlignTools/src/
 python ptychoAlign.py
 ```
 
