@@ -71,6 +71,7 @@ Once opened, the GUI will initialize like shown below:
   * place a screenshot.
 * If a mask is loaded it will also be used on the display of the Global Image.
 
+
 **Image processing and measure calculation**
 In the auto subfolder there are some scripts related to:
 * probe alignment based on edge-type features
