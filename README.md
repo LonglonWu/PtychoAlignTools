@@ -92,14 +92,15 @@ In the [auto](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/src
 
 ## References
 
-* Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli, and Sergio Carrato, "*Refining scan positions in Ptychography by using multiple metrics and Machine Learning*", submitted to *[JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about) Proceedings of the 24th International congress on x-ray optics and microanalysis*, 24-29 September 2017, Trieste, Italy ([ICXOM24](https://jinst.sissa.it/jinst/common/JINST_proceedings8.jsp)).
+[1] Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli, and Sergio Carrato, "*Refining scan positions in Ptychography by using multiple metrics and Machine Learning*", submitted to *[JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about) Proceedings of the 24th International congress on x-ray optics and microanalysis*, 24-29 September 2017, Trieste, Italy ([ICXOM24](https://jinst.sissa.it/jinst/common/JINST_proceedings8.jsp)).
 DOI:
 
 **Data and reconstructions as presented in:**
-* George Kourousias, Benedetto Bozzini, Alessandra Gianoncelli, Michael W. M. Jones, Mark Junker, Grant van Riessen, and Maya Kiskinova, "*Shedding light on electrodeposition dynamics tracked  *in situ* via soft X-ray coherent diffraction imaging*", *Nano Research*, Vol. **9**, Issue 7, (2016), pp. 2046-2056.
+
+[2] George Kourousias, Benedetto Bozzini, Alessandra Gianoncelli, Michael W. M. Jones, Mark Junker, Grant van Riessen, and Maya Kiskinova, "*Shedding light on electrodeposition dynamics tracked  *in situ* via soft X-ray coherent diffraction imaging*", *Nano Research*, Vol. **9**, Issue 7, (2016), pp. 2046-2056.
 DOI: https://doi.org/10.1007/s12274-016-1095-9
 
-* George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "*Monitoring dynamic electrochemical processes with in-situ ptychography*", to appear in *Applied Nanoscience*, (2018).
+[3] George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "*Monitoring dynamic electrochemical processes with in-situ ptychography*", to appear in *Applied Nanoscience*, (2018).
 DOI:
 
 ## Developers
