@@ -1,4 +1,5 @@
 
+
 # Ptychography Alignment Tools
 
 
@@ -74,6 +75,7 @@ Once opened, the GUI will initialize like shown below:
 
 ## Image processing and measure calculation
 In the auto subfolder there are some scripts related to:
+
 * probe alignment based on edge-type features
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/edge_align.png)
 * probe alignment based on local-type features
@@ -81,16 +83,22 @@ In the auto subfolder there are some scripts related to:
 * plotting of many measure in the neighborhood of a given position
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/measures.png)
 
-## Credits and References
+## References
 
-Publications:
-* Refining scan positions in Ptychography by using multiple metrics and Machine Learning (Submitted to [JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about))
+* Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli, and Sergio Carrato, "Refining scan positions in Ptychography by using multiple metrics and Machine Learning", submitted to [JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about) Proceedings of the 24th International congress on x-ray optics and microanalysis, 24-29 September 2017, Trieste, Italy ([ICXOM24](https://jinst.sissa.it/jinst/common/JINST_proceedings8.jsp)).
+DOI:
 
-Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli and Sergio Carrato
+**Data and reconstructions as presented in:**
+* George Kourousias, Benedetto Bozzini, Alessandra Gianoncelli, Michael W. M. Jones, Mark Junker, Grant van Riessen, and Maya Kiskinova, "Shedding light on electrodeposition dynamics tracked  *in situ* via soft X-ray coherent diffraction imaging", Nano Research, **9**, 7, 2016, pp. 2046-2056.
+DOI: https://doi.org/10.1007/s12274-016-1095-9
 
+* George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "Monitoring dynamic electrochemical processes with in-situ ptychography", to appear in Applied Nanoscience, 2018.
+DOI:
+
+## Developers
 The software has been developed by the authors, members of the [Elettra Scientific Computing Team](https://www.elettra.trieste.it/it/lightsources/labs-and-services/scientific-computing/scientific-computing.html) and the [Image Processing Laboratory](https://www2.units.it/ipl/index.htm)  from the  [University of Trieste](https://www.units.it/).
 
 
 ## License
 
-The project in under the GPL-v3 license
+The project in under the GPL-v3 license.
