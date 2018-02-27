@@ -75,17 +75,17 @@ Once opened, the GUI will initialize like shown below:
 
 
 ## Image processing and measure calculation
-In the auto subfolder there are some scripts related to:
+In the [auto](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/src/auto) subfolder there are some scripts related to:
 
-* probe alignment based on edge-type features
+* Probe alignment based on edge-type features
 
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/edge_align.png)
 
-* probe alignment based on local-type features
+* Probe alignment based on local-type features
 
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/localFeat.png)
 
-* plotting of many measure in the neighborhood of a given position
+* Plotting of many measure in the neighborhood of a given position
 
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/measures.png)
 
