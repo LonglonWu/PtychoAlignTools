@@ -100,7 +100,7 @@ DOI:
 [2] George Kourousias, Benedetto Bozzini, Alessandra Gianoncelli, Michael W. M. Jones, Mark Junker, Grant van Riessen, and Maya Kiskinova, "*Shedding light on electrodeposition dynamics tracked  *in situ* via soft X-ray coherent diffraction imaging*", *Nano Research*, Vol. **9**, Issue 7, (2016), pp. 2046-2056.
 DOI: https://doi.org/10.1007/s12274-016-1095-9
 
-[3] George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "*Monitoring dynamic electrochemical processes with in-situ ptychography*", to appear in *Applied Nanoscience*, (2018).
+[3] George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "*Monitoring dynamic electrochemical processes with in-situ ptychography*", *Applied Nanoscience*, (2018), (*To appear*).
 DOI:
 
 ## Developers
