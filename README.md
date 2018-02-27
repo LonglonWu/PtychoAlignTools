@@ -64,7 +64,8 @@ Once opened, the GUI will initialize like shown below:
 
 **Preview Global Image**
 * Based on the current positions, combine all the 12 probes and show a preview of the total alignment.
-* ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
+ 
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
 
 **Load Mask**
 * This feature allows a user to pick a mask and apply it to the selected probes in order improve the refinement of the positions. 
@@ -77,10 +78,15 @@ Once opened, the GUI will initialize like shown below:
 In the auto subfolder there are some scripts related to:
 
 * probe alignment based on edge-type features
+
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/edge_align.png)
+
 * probe alignment based on local-type features
+
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/localFeat.png)
+
 * plotting of many measure in the neighborhood of a given position
+
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/measures.png)
 
 ## References
