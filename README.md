@@ -101,7 +101,7 @@ DOI:
 DOI: https://doi.org/10.1007/s12274-016-1095-9
 
 [3] George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "*Monitoring dynamic electrochemical processes with in-situ ptychography*", *Applied Nanoscience*, (2018), (*To appear*).
-DOI:
+DOI: https://doi.org/10.1007/s13204-018-0703-2
 
 ## Developers
 The software has been developed by the authors, members of the [Elettra Scientific Computing Team](https://www.elettra.trieste.it/it/lightsources/labs-and-services/scientific-computing/scientific-computing.html) and the [Image Processing Laboratory](https://www2.units.it/ipl/index.htm)  from the  [University of Trieste](https://www.units.it/).
