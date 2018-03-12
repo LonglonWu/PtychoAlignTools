@@ -110,3 +110,8 @@ The software has been developed by the authors, members of the [Elettra Scientif
 ## License
 
 The project in under the GPL-v3 license.
+
+
+## Acknowledgments
+
+This project is supported by the research and development activities of the Advanced Integrated Imaging Initiative (AI3) project of Elettra - Sincrotrone Trieste.
