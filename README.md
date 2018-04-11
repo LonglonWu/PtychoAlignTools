@@ -1,4 +1,6 @@
 
+
+
 # Ptychography Alignment Tools
 
 
@@ -63,7 +65,8 @@ Once opened, the GUI will initialize like shown below:
 
 **Preview Global Image**
 * Based on the current positions, combine all the 12 probes and show a preview of the total alignment.
-* ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
+ 
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
 
 **Load Mask**
 * This feature allows a user to pick a mask and apply it to the selected probes in order improve the refinement of the positions. 
@@ -71,19 +74,44 @@ Once opened, the GUI will initialize like shown below:
   * place a screenshot.
 * If a mask is loaded it will also be used on the display of the Global Image.
 
-#**GK operation**
 
+## Image processing and measure calculation
+In the [auto](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/src/auto) subfolder there are some scripts related to:
 
-## Credits and References
+* Probe alignment based on edge-type features
 
-Publications:
-* Refining scan positions in Ptychography by using multiple metrics and Machine Learning (Submitted to [JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about))
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/edge_align.png)
 
-Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli and Sergio Carrato
+* Probe alignment based on local-type features
 
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/localFeat.png)
+
+* Plotting of many measure in the neighborhood of a given position
+
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/measures.png)
+
+## References
+
+[1] Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli, and Sergio Carrato, "*Refining scan positions in Ptychography by using multiple metrics and Machine Learning*", submitted to *[JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about) Proceedings of the 24th International congress on x-ray optics and microanalysis*, 24-29 September 2017, Trieste, Italy ([ICXOM24](https://jinst.sissa.it/jinst/common/JINST_proceedings8.jsp)).
+DOI:
+
+**Data and reconstructions as presented in:**
+
+[2] George Kourousias, Benedetto Bozzini, Alessandra Gianoncelli, Michael W. M. Jones, Mark Junker, Grant van Riessen, and Maya Kiskinova, "*Shedding light on electrodeposition dynamics tracked  *in situ* via soft X-ray coherent diffraction imaging*", *Nano Research*, Vol. **9**, Issue 7, (2016), pp. 2046-2056.
+DOI: https://doi.org/10.1007/s12274-016-1095-9
+
+[3] George Kourousias, Benedetto Bozzini, Michael W. M. Jones, Grant A. Van Riessen, Simone Dal Zilio, Fulvio Billé, Maya Kiskinova, and Alessandra Gianoncelli, "*Monitoring dynamic electrochemical processes with in-situ ptychography*", *Applied Nanoscience*, (2018), (*To appear*).
+DOI: https://doi.org/10.1007/s13204-018-0703-2
+
+## Developers
 The software has been developed by the authors, members of the [Elettra Scientific Computing Team](https://www.elettra.trieste.it/it/lightsources/labs-and-services/scientific-computing/scientific-computing.html) and the [Image Processing Laboratory](https://www2.units.it/ipl/index.htm)  from the  [University of Trieste](https://www.units.it/).
 
 
 ## License
 
-The project in under the GPL-v3 license
+The project in under the GPL-v3 license.
+
+
+## Acknowledgments
+
+This project is supported by the research and development activities of the Advanced Integrated Imaging Initiative (AI3) project of Elettra - Sincrotrone Trieste.
