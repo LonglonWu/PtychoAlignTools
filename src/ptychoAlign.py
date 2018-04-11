@@ -68,11 +68,17 @@ class PtychoAlign(object):
         self.maskpath = '' # stores the mask file path, name and format
         self.maskname = ''
         self.maskformat = ''
+
+        self.hor_ver_header = [] # horizontal and vertical header for Table
         
         self.plt_align = None # Plot area for the alignment
         self.plt_probe = None # Plot area for the probe image
 
-        self.mask = np.ones((2048, 2048)) # Mask image data numpy array
+        self.mask = np.ones((1,1)) # Mask image data numpy array
+
+        # user input
+        self.col = None # number of columns of the scan map
+        self.row = None # number of rows of the scan map
         
         self.img_anchored = None # Image Data numpy array
         self.img_movable = None
@@ -87,15 +93,14 @@ class PtychoAlign(object):
         self.anchored = 0 # initialinzg the anchored and movable probes
         self.movable = 1
 
-        self.ref = None  # reference to build the whole canvas      
-
+        self.ref = None  # reference to build the whole canvas
 
         self.data = [] # list containing the loaded image (numpy arrays)
         self.map_pos = []
 
         # Initialize relative positions with zeros (no alignments)
-        self.rel_pos = np.zeros((12, 12, 2)) # Data structure shape
-        
+##        self.rel_pos = np.zeros((12, 12, 2)) # Data structure shape
+        self.rel_pos = np.zeros((1,1))
 
         self.roi_probe_anc = None # red roi 
         self.roi_probe_mov = None # green roi         
@@ -123,6 +128,24 @@ class PtychoAlign(object):
         self.winMain.setCentralWidget(area)
         self.winMain.resize(1200,1200)
         self.winMain.setWindowTitle('PtychoAlign - ')
+
+        # QDialog for user input
+        self.dialog = QtGui.QDialog(self.winMain)
+        self.form = QtGui.QFormLayout(self.dialog)
+        self.form.addRow(QtGui.QLabel("Please inform number of rows and columns of your scan map."))
+        self.colLineEdit = QtGui.QLineEdit("0")
+        self.rowLineEdit = QtGui.QLineEdit("0")
+        self.form.addRow(QtGui.QLabel("Col"), self.colLineEdit)
+        self.form.addRow(QtGui.QLabel("Row"), self.rowLineEdit)
+        self.buttonBox = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Ok |
+                                                QtGui.QDialogButtonBox.Cancel,
+                                                QtCore.Qt.Horizontal,
+                                                self.dialog)
+        button_ok = self.buttonBox.button(QtGui.QDialogButtonBox.Ok)
+        button_cancel = self.buttonBox.button(QtGui.QDialogButtonBox.Cancel)
+        button_ok.clicked.connect(self.dialogOk)
+        button_cancel.clicked.connect(self.dialogCancel)
+        self.form.addRow(self.buttonBox)
         
         d1 = Dock("Tools", size=(400,600))
         d2 = Dock("Single Reconstructed Probes", size=(800,600))
@@ -153,11 +176,7 @@ class PtychoAlign(object):
         self.plt_probe.addItem(self.img_probe)
 
         """Table relative Positions [anchored movable (x,y)]"""
-        self.tablePositions = pg.TableWidget(editable=False, sortable=False)
-        self.horizontal_header = []
-        for i in range(12):
-            self.horizontal_header.append(str(i))             
-        
+        self.tablePositions = pg.TableWidget(editable=False, sortable=False)       
         
         winTools = QtGui.QWidget(parent=self.winMain)
 ##        winTools.setFocusProxy(self.winAlign)
@@ -326,8 +345,8 @@ class PtychoAlign(object):
 
         """Set up Table of Positions"""
         self.tablePositions.setData(self.rel_pos.tolist())
-        self.tablePositions.setHorizontalHeaderLabels(self.horizontal_header)
-        self.tablePositions.setVerticalHeaderLabels(self.horizontal_header)
+        self.tablePositions.setHorizontalHeaderLabels(self.hor_ver_header)
+        self.tablePositions.setVerticalHeaderLabels(self.hor_ver_header)
         
         """Set up signals, key events, mouse events"""
         self.winAlign.keyPressEvent = self.keyPressEventAlignment
@@ -344,49 +363,37 @@ class PtychoAlign(object):
 
         self.combo_operation.currentIndexChanged.connect(self.alignImage)
 
-
+    # key actions for aligning the images 
     def keyPressEventAlignment(self, event):      
-        if type(event) == QtGui.QKeyEvent:
-              
+        if type(event) == QtGui.QKeyEvent:              
             if event.key() == QtCore.Qt.Key_Left:
-                self.spin_position_horizontal.setValue(self.spin_position_horizontal.value() - self.spin_short_step.value())
-##                self.alignImage()                
+                self.spin_position_horizontal.setValue(self.spin_position_horizontal.value() - self.spin_short_step.value())                
             elif event.key() == QtCore.Qt.Key_Right:
-                self.spin_position_horizontal.setValue(self.spin_position_horizontal.value() + self.spin_short_step.value())
-##                self.alignImage()                
+                self.spin_position_horizontal.setValue(self.spin_position_horizontal.value() + self.spin_short_step.value())                
             elif event.key() == QtCore.Qt.Key_Up:                
                 self.spin_position_vertical.setValue(self.spin_position_vertical.value() + self.spin_short_step.value())
-##                self.alignImage()
             elif event.key() == QtCore.Qt.Key_Down:
                 self.spin_position_vertical.setValue(self.spin_position_vertical.value() - self.spin_short_step.value())
-##                self.alignImage()
             elif event.key() == QtCore.Qt.Key_A:
                 self.spin_position_horizontal.setValue(self.spin_position_horizontal.value() - self.spin_large_step.value())
-##                self.alignImage()
             elif event.key() == QtCore.Qt.Key_D:
                 self.spin_position_horizontal.setValue( self.spin_position_horizontal.value() + self.spin_large_step.value())
-##                self.alignImage()
             elif event.key() == QtCore.Qt.Key_W:
                 self.spin_position_vertical.setValue(self.spin_position_vertical.value() + self.spin_large_step.value())
-##                self.alignImage()
             elif event.key() == QtCore.Qt.Key_S:
                 self.spin_position_vertical.setValue(self.spin_position_vertical.value() - self.spin_large_step.value())
-##                self.alignImage()
+
                 
     def keyPressEventProbe(self, event):
         if type(event) == QtGui.QKeyEvent:
             if event.key() == QtCore.Qt.Key_Left or event.key() == QtCore.Qt.Key_A:
                 self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x()-self.data[0].shape[1], self.roi_probe_anc.pos().y()])
-##                print self.roi_probe_anc.pos()
             elif event.key() == QtCore.Qt.Key_Right or event.key() == QtCore.Qt.Key_D:
                 self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x()+self.data[0].shape[1], self.roi_probe_anc.pos().y()])
-##                print self.roi_probe_anc.pos()
             elif event.key() == QtCore.Qt.Key_Up or event.key() ==  QtCore.Qt.Key_W:
                 self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x(), self.roi_probe_anc.pos().y()+self.data[0].shape[0]])
-##                print self.roi_probe_anc.pos()
             elif event.key() == QtCore.Qt.Key_Down or event.key() == QtCore.Qt.Key_S:
                 self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x(), self.roi_probe_anc.pos().y()-self.data[0].shape[0]])
-##                print self.roi_probe_anc.pos()
             elif event.key() == QtCore.Qt.Key_Return or event.key() == QtCore.Qt.Key_Enter:
                 self.refreshView()
                 self.winAlign.setFocus()
@@ -459,14 +466,40 @@ class PtychoAlign(object):
             self.tablePositions.resizeColumnsToContents()
 ##        self.winAlign.setFocus()
 
+    def dialogOk(self):
+        # try | except block to garantee only integers as input
+        try:
+            eval(str(self.colLineEdit.text()))
+            eval(str(self.rowLineEdit.text()))
+            if type(eval(str(self.colLineEdit.text()))) == int and type(eval(str(self.rowLineEdit.text()))) == int:                
+                self.col = eval(str(self.colLineEdit.text()))
+                self.row = eval(str(self.rowLineEdit.text()))
+                self.dialog.accept()
+            else:                
+                reply = QtGui.QMessageBox.information(self.dialog, "Warning",
+"""Please type only integers numbers.
+""")            
+                self.dialog.open()                
+        except NameError:            
+            reply = QtGui.QMessageBox.information(self.dialog, "Warning",
+"""Please type only integers numbers.
+""")            
+            self.dialog.open()
+
+    def dialogCancel(self):        
+        self.dialog.reject()
+
     def openProbes(self):
-    ##            print "Load Probes"
+        # ask for user input the shape of the probe scans
+        self.dialog.exec_()
         # Opens a File Dialog
         if self.probes_paths != None:
-            self.probes_paths = None
-
-        self.probes_paths = QtGui.QFileDialog.getOpenFileNames(self.winMain, 'Load Probes',  '.',
+            self.probes_paths = None        
+        if self.dialog.result():
+            self.probes_paths = QtGui.QFileDialog.getOpenFileNames(self.winMain, 'Load Probes',  '.',
                                                        "Images (*.tiff *.tif);;All (*.*)")
+        else:
+            pass
     ##            print self.probes_paths[1]         
         if self.probes_paths[0] == []:
             pass
@@ -485,16 +518,20 @@ class PtychoAlign(object):
                 reply = QtGui.QMessageBox.information(self.winMain, "Warning",
 """The file loaded must be of tiff or tif format in order to load properly.
 """)
-
-        self.canvas_probe = np.ones((self.data[0].shape[0]*4, self.data[0].shape[1]*3), dtype=np.float32)
+##        self.col = 2
+##        self.row = 2
+##        self.canvas_probe = np.ones((self.data[0].shape[0]*4, self.data[0].shape[1]*3), dtype=np.float32)
+        self.canvas_probe = np.ones((self.data[0].shape[0]*self.row, self.data[0].shape[1]*self.col), dtype=np.float32)
+        print "data len", len(self.data)
+        print "canvas_probe shape", self.canvas_probe.shape
         
         i = 0
         j = 0
         k = 0
         for d in range(len(self.data)):
-##            print i,j,k
+            print i,j,k
             self.map_pos.append((j,i))
-            if i == 3:
+            if i == (self.row-1):
                 self.canvas_probe[self.canvas_probe.shape[0]-(i+1)*self.data[0].shape[0]:
                                   self.canvas_probe.shape[0]-i*self.data[0].shape[0],
                                   self.canvas_probe.shape[1]-(j+1)*self.data[0].shape[1]:
@@ -515,29 +552,45 @@ class PtychoAlign(object):
 ##        print self.map_pos
         self.img_probe.setImage(self.canvas_probe)
 
+        self.mask = np.ones((self.data[0].shape[0], self.data[0].shape[1]))
+
         self.ref = 512
         self.ref_rec = 320
         # To avoid creating ROI objects twice 
         if self.roi_probe_anc == None:
             pen = pg.mkPen(color='r', width=2)
-            self.roi_probe_anc = pg.ROI([4096,6144], [self.data[0].shape[1], self.data[0].shape[0]], pen=pen, movable=False)
+##            self.roi_probe_anc = pg.ROI([4096,6144], [self.data[0].shape[1], self.data[0].shape[0]], pen=pen, movable=False)
+            self.roi_probe_anc = pg.ROI([self.data[0].shape[0]*(self.col-1),self.data[0].shape[1]*(self.row-1)],
+                                        [self.data[0].shape[1], self.data[0].shape[0]], pen=pen, movable=False)        
             self.roi_probe_anc.setParentItem(self.img_probe)
             self.text_anc = pg.TextItem()
             self.text_anc.setParentItem(self.roi_probe_anc)
             self.text_anc.setText('0', color='r')
             
             pen = pg.mkPen(color='g', width=2)
-            self.roi_probe_mov = pg.ROI([4096,4096], [self.data[0].shape[1], self.data[0].shape[0]], pen=pen, movable=False)
+##            self.roi_probe_mov = pg.ROI([4096,4096], [self.data[0].shape[1], self.data[0].shape[0]], pen=pen, movable=False)
+            self.roi_probe_mov = pg.ROI([self.data[0].shape[0]*(self.col-1),self.data[0].shape[1]*(self.row-2)],
+                                        [self.data[0].shape[1], self.data[0].shape[0]], pen=pen, movable=False)
             self.roi_probe_mov.setParentItem(self.img_probe)
             self.text_mov = pg.TextItem()
             self.text_mov.setParentItem(self.roi_probe_mov)
             self.text_mov.setText('1', color='g')
         else:
-            self.roi_probe_anc.setPos([4096,6144])
-            self.roi_probe_mov.setPos([4096,4096])
+            self.roi_probe_anc.setSize([self.data[0].shape[1], self.data[0].shape[0]])
+            self.roi_probe_anc.setPos([self.data[0].shape[0]*(self.col-1),self.data[0].shape[1]*(self.row-1)])
+            self.roi_probe_mov.setSize([self.data[0].shape[1], self.data[0].shape[0]])
+            self.roi_probe_mov.setPos([self.data[0].shape[0]*(self.col-1),self.data[0].shape[1]*(self.row-2)])
             self.text_anc.setText('0', color='r')
             self.text_mov.setText('1', color='g')
 
+        
+        self.rel_pos = np.zeros((self.col*self.row, self.col*self.row, 2))
+        # setting table data
+        self.tablePositions.setData(self.rel_pos.tolist())
+        for i in range(self.col*self.row):
+            self.hor_ver_header.append(str(i))            
+        self.tablePositions.setHorizontalHeaderLabels(self.hor_ver_header)
+        self.tablePositions.setVerticalHeaderLabels(self.hor_ver_header)        
         self.tablePositions.setCurrentCell(self.movable, self.anchored)
 
         self.createCanvasMovable()
@@ -568,8 +621,8 @@ class PtychoAlign(object):
         if self.fformat == 'npy':
             self.rel_pos = np.load(self.fpath)
             self.tablePositions.setData(self.rel_pos.tolist())
-            self.tablePositions.setHorizontalHeaderLabels(self.horizontal_header)
-            self.tablePositions.setVerticalHeaderLabels(self.horizontal_header)
+            self.tablePositions.setHorizontalHeaderLabels(self.hor_ver_header)
+            self.tablePositions.setVerticalHeaderLabels(self.hor_ver_header)
             self.tablePositions.resizeColumnsToContents()
 ##            print self.rel_pos
         else:
@@ -631,13 +684,13 @@ class PtychoAlign(object):
         
     
     def createCanvasAnchored(self):
-        self.canvas_anchored = np.ones( (3000, 3000), dtype=np.float32 )
+        self.canvas_anchored = np.ones( (self.data[0].shape[1]+(2*self.ref), self.data[0].shape[0]+(2*self.ref)), dtype=np.float32 )
         self.img_anchored = self.data[self.anchored]        
         self.canvas_anchored[self.ref:self.ref+self.data[0].shape[1],
                              self.ref:self.ref+self.data[0].shape[0]] = self.img_anchored        
 
     def createCanvasMovable(self):
-        self.canvas_movable = np.ones( (3000, 3000), dtype=np.float32 )
+        self.canvas_movable = np.ones( (self.data[0].shape[1]+(2*self.ref), self.data[0].shape[0]+(2*self.ref)), dtype=np.float32 )
         self.img_movable = self.data[self.movable]        
         self.canvas_movable[self.ref:self.ref+self.data[0].shape[1],
                             self.ref:self.ref+self.data[0].shape[0]] = self.img_movable       
@@ -677,8 +730,8 @@ class PtychoAlign(object):
         item = widgets.TableWidget.TableWidgetItem( str(self.rel_pos[self.movable, self.anchored]), index )                    
         self.tablePositions.setItem(self.movable, self.anchored, item)
         
-        self.tablePositions.setHorizontalHeaderLabels(self.horizontal_header)
-        self.tablePositions.setVerticalHeaderLabels(self.horizontal_header)
+        self.tablePositions.setHorizontalHeaderLabels(self.hor_ver_header)
+        self.tablePositions.setVerticalHeaderLabels(self.hor_ver_header)
         self.tablePositions.resizeColumnsToContents()
 ##        print self.rel_pos[self.movable]                   
 
@@ -732,40 +785,22 @@ class PtychoAlign(object):
                 return (img0 + img1) / s
             
     def get_xy_pos(self):
-        x_pos = np.zeros((12,))
-        y_pos = np.zeros((12,))
+        x_pos = np.zeros( (self.row*self.col,) )
+        y_pos = np.zeros( (self.row*self.col,) )
 
-        #########################
         x_pos[0] = self.rel_pos[0,0][0]
-        x_pos[1] = self.rel_pos[1,0][0] + x_pos[0]
-        x_pos[2] = self.rel_pos[2,1][0] + x_pos[1]
-        x_pos[3] = self.rel_pos[3,2][0] + x_pos[2]
-
-        x_pos[4] = self.rel_pos[4,0][0]
-        x_pos[5] = self.rel_pos[5,4][0] + x_pos[4]
-        x_pos[6] = self.rel_pos[6,5][0] + x_pos[5]
-        x_pos[7] = self.rel_pos[7,6][0] + x_pos[6]
-
-        x_pos[8]  = self.rel_pos[8,4][0]   + x_pos[4]
-        x_pos[9]  = self.rel_pos[8,9][0]   + x_pos[8]
-        x_pos[10] = self.rel_pos[10,9][0]  + x_pos[9]
-        x_pos[11] = self.rel_pos[11,10][0] + x_pos[10]
-        ##########################
-
         y_pos[0] = self.rel_pos[0,0][1]
-        y_pos[1] = self.rel_pos[1,0][1] + y_pos[0]
-        y_pos[2] = self.rel_pos[2,1][1] + y_pos[1]
-        y_pos[3] = self.rel_pos[3,2][1] + y_pos[2]
 
-        y_pos[4] = self.rel_pos[4,0][1]
-        y_pos[5] = self.rel_pos[5,4][1] + y_pos[4]
-        y_pos[6] = self.rel_pos[6,5][1] + y_pos[5]
-        y_pos[7] = self.rel_pos[7,6][1] + y_pos[6]
-
-        y_pos[8]  = self.rel_pos[8,4][1]   + y_pos[4]
-        y_pos[9]  = self.rel_pos[9,8][1]   + y_pos[8]
-        y_pos[10] = self.rel_pos[10,9][1]  + y_pos[9] 
-        y_pos[11] = self.rel_pos[11,10][1] + y_pos[10]
+        for i in range(self.row*self.col):            
+            if i == 0:
+                x_pos[i] = self.rel_pos[i,i][0]
+                y_pos[i] = self.rel_pos[i,i][1]
+            elif (i%self.row) == 0:
+                x_pos[i] = self.rel_pos[i, i-self.row][0] + x_pos[i-self.row]
+                y_pos[i] = self.rel_pos[i, i-self.row][1] + y_pos[i-self.row]                    
+            else:
+                x_pos[i] = self.rel_pos[i, i-1][0] + x_pos[i-1]
+                y_pos[i] = self.rel_pos[i, i-1][1] + y_pos[i-1]       
 
         return x_pos, y_pos
 ##        return y_pos, x_pos
@@ -775,6 +810,8 @@ class PtychoAlign(object):
         x_pos, y_pos = self.get_xy_pos()
         print x_pos
         print y_pos
+##        x_pos = np.asarray([0,0,0,-100,-100,-100,-200,-200,-200])
+##        y_pos = np.asarray([0,-100,-200,0,-100,-200,0,-100,-200])
         #x y pos sanitizing
         x_pos = np.abs(x_pos)
         y_pos = np.abs(y_pos)
@@ -794,12 +831,12 @@ class PtychoAlign(object):
 
         for i in range( len(self.probes_paths[0]) ):
             print '.',
-##            c[ x_pos[i]:x_pos[i]+self.data[i].shape[0],
-##               y_pos[i]:y_pos[i]+self.data[i].shape[1] ] +=  np.rot90( np.flipud( self.data[i] ), k=4 ) * np.rot90(self.mask, k=4) #d[i]*m is dm[i]
-##            s[ x_pos[i]:x_pos[i]+self.data[i].shape[0], y_pos[i]:y_pos[i]+self.data[i].shape[1] ] += np.rot90(self.mask, k=4)
             c[ x_pos[i]:x_pos[i]+self.data[i].shape[0],
-               y_pos[i]:y_pos[i]+self.data[i].shape[1] ] +=  np.rot90( np.flipud(self.data[i]) , k=1 ) * np.rot90(self.mask, k=1) #d[i]*m is dm[i]
+               y_pos[i]:y_pos[i]+self.data[i].shape[1] ] +=  np.rot90( np.flipud(self.data[i]), k=1 ) * np.rot90(self.mask, k=1) #d[i]*m is dm[i]
             s[ x_pos[i]:x_pos[i]+self.data[i].shape[0], y_pos[i]:y_pos[i]+self.data[i].shape[1] ] += np.rot90(self.mask, k=1)
+##            c[ x_pos[i]:x_pos[i]+self.data[i].shape[0],
+##               y_pos[i]:y_pos[i]+self.data[i].shape[1] ] +=  np.rot90( np.flipud(self.data[i]) , k=1 ) * np.rot90(self.mask, k=1) #d[i]*m is dm[i]
+##            s[ x_pos[i]:x_pos[i]+self.data[i].shape[0], y_pos[i]:y_pos[i]+self.data[i].shape[1] ] += np.rot90(self.mask, k=1)
 
         wc = c/s
         wc = np.rot90(wc, k=3)
