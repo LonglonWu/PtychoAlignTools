@@ -228,7 +228,7 @@ class PtychoAlign(object):
         label_operation.setFocusPolicy(QtCore.Qt.NoFocus)
         label_operation.setFocusPolicy(QtCore.Qt.NoFocus)
         self.combo_operation = QtGui.QComboBox()        
-        self.combo_operation.addItems(["Multiplication", "Division", "Addition", "Subtraction", "GK"])
+        self.combo_operation.addItems(["Multiplication", "Division", "Addition", "Subtraction", "Mask"])
 
         label_weight_1 = QtGui.QPushButton("W1")
         label_weight_1.setFlat(True)
@@ -273,7 +273,7 @@ class PtychoAlign(object):
         self.spin_position_vertical.setRange(-10000, 10000)
         self.spin_position_vertical.setAlignment(QtCore.Qt.AlignHCenter)
 
-        button_load_mask = QtGui.QPushButton("Load Mask [GK operation]")
+        button_load_mask = QtGui.QPushButton("Load Mask [Mask operation]")
         button_load_mask.clicked.connect(self.openMask)
         self.label_mask = QtGui.QPushButton("Mask name")
         self.label_mask.setFlat(True)
@@ -753,7 +753,7 @@ class PtychoAlign(object):
             return img0 + img1        
         elif operation == "subtraction":
             return img0 - img1
-        elif operation == "gk":            
+        elif operation == "mask":            
             if self.mask.all() == 1:
                 print "Please load a mask to perform this operation!"
                 reply = QtGui.QMessageBox.information(self.winMain, "Warning",
