@@ -42,14 +42,14 @@ python ptychoAlign.py
 Once opened, the GUI will initialize like shown below:
 
 
-![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_A.png)
+![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/dev/pictures/ptychoAlign_GUI_A.png)
  
 
  **Load Probes**
 * By clicking on "Load Probes" a file dialog will prompt allowing for opening up to 12 images of probe scans and load them as a 4x3 map of single reconstructed probes.
 
 
- ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_B.png)
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/dev/pictures/ptychoAlign_GUI_B.png)
 
  
 * The two rectangles, red and green, allows for selecting a pair of images to be aligned. The selection is made by clicking on the probes. Right click to select an "movable" image and left click to select and "anchored" (not movable) image.
