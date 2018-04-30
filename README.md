@@ -46,7 +46,7 @@ Once opened, the GUI will initialize like shown below:
  
 
  **Load Probes**
-* By clicking on "Load Probes" a file dialog will prompt allowing for opening up to 12 images of probe scans and load them as a 4x3 map of single reconstructed probes.
+* By clicking on "Load Probes" a dialog will prompt asking for user input of number of columns and rows the scan map has, then a file dialog will prompt allowing for opening images of probe scans and load them as map of single reconstructed probes.
 
 
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/dev/pictures/ptychoAlign_GUI_B.png)
@@ -66,7 +66,7 @@ Once opened, the GUI will initialize like shown below:
 **Preview Global Image**
 * Based on the current positions, combine all the 12 probes and show a preview of the total alignment.
  
- ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
+ ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/dev/pictures/ptychoAlign_GUI_C.png)
 
 **Load Mask**
 * This feature allows a user to pick a mask and apply it to the selected probes in order improve the refinement of the positions. 
