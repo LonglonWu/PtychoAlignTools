@@ -52,8 +52,8 @@ Once opened, the GUI will initialize like shown below:
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/dev/pictures/ptychoAlign_GUI_B.png)
 
  
-* The two rectangles, red and green, allows for selecting a pair of images to be aligned. The selection is made by clicking on the probes. Right click to select an "movable" image and left click to select and "anchored" (not movable) image.
-* The "Pairwise Alignment View" window display the selected images by doing an operation (Multiplication, Division, Addition, Subtraction, GK) between them.
+* The two rectangles, red and green, allow for selecting a pair of images to be aligned. The selection is made by clicking on the probes. Right click to select a "movable" image and left click to select an "anchored" (not movable) image.
+* The "Pairwise Alignment View" window display the selected images by doing an operation (Multiplication, Division, Addition, Subtraction, Mask) between them.
 
 **Load and Save Alignment**
 * By clicking on "Load Alignment" button a file dialog will prompt. It allows to load a ".npy" file (numpy binary file) containing positions of previous alignment. We provide two sample files at [probe-positions](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/sample-data/probe-positions).
@@ -69,7 +69,7 @@ Once opened, the GUI will initialize like shown below:
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/dev/pictures/ptychoAlign_GUI_C.png)
 
 **Load Mask**
-* This feature allows a user to pick a mask and apply it to the selected probes in order improve the refinement of the positions. 
+* This feature allows a user to pick a mask and apply it to the selected probes in order to improve the refinement of the positions. 
 * Loading the "filter_gaussian_sigma20.png" mask provided in [masks](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/sample-data/masks) and setting the operation dropdown menu to Mask give us the following:
   * place a screenshot.
 * If a mask is loaded it will also be used on the display of the Global Image.
