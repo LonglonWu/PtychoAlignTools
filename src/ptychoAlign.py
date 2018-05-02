@@ -386,14 +386,9 @@ class PtychoAlign(object):
                 
     def keyPressEventProbe(self, event):
         if type(event) == QtGui.QKeyEvent:
-            if event.key() == QtCore.Qt.Key_Left or event.key() == QtCore.Qt.Key_A:
-                self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x()-self.data[0].shape[1], self.roi_probe_anc.pos().y()])
-            elif event.key() == QtCore.Qt.Key_Right or event.key() == QtCore.Qt.Key_D:
-                self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x()+self.data[0].shape[1], self.roi_probe_anc.pos().y()])
-            elif event.key() == QtCore.Qt.Key_Up or event.key() ==  QtCore.Qt.Key_W:
-                self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x(), self.roi_probe_anc.pos().y()+self.data[0].shape[0]])
-            elif event.key() == QtCore.Qt.Key_Down or event.key() == QtCore.Qt.Key_S:
-                self.roi_probe_anc.setPos([self.roi_probe_anc.pos().x(), self.roi_probe_anc.pos().y()-self.data[0].shape[0]])
+            if event.key() == QtCore.Qt.Key_S:
+                print "Swap probes"
+                self.swapProbes()
             elif event.key() == QtCore.Qt.Key_Return or event.key() == QtCore.Qt.Key_Enter:
                 self.refreshView()
                 self.winAlign.setFocus()
@@ -404,7 +399,11 @@ class PtychoAlign(object):
                 self.winAlign.setFocus()                
 
     def mouseClickEventProbe(self, event):
-##        print "Clicked"
+##        print help(event)
+        print event.button()
+        print event.buttons()
+        print event.flags()
+        print help(event.modifiers())
         mouse_x = round(event.pos().x())
         mouse_y = round(event.pos().y())
 
@@ -681,7 +680,29 @@ class PtychoAlign(object):
         self.mask -= self.mask.min()
         self.mask /= self.mask.max()
         self.alignImage()
+
+    def swapProbes(self):
+        print "ROI's: mov, anc", self.movable, self.anchored
+        print "canvas probe shape", self.canvas_probe.shape
+        print "ROI's positions", self.roi_probe_mov.pos(), self.roi_probe_anc.pos()
+        print "ROI's sizes", self.roi_probe_mov.size(), self.roi_probe_anc.size()
+
+        pos_mov_x, pos_mov_y = int(self.roi_probe_mov.pos()[0]), int(self.roi_probe_mov.pos()[1])
+        pos_anc_x, pos_anc_y = int(self.roi_probe_anc.pos()[0]), int(self.roi_probe_anc.pos()[1])       
+
+        size_x = int(self.roi_probe_mov.size()[0])
+        size_y = int(self.roi_probe_mov.size()[1])        
         
+        swap_aux_anc = self.roi_probe_anc.getArrayRegion(self.canvas_probe, self.img_probe)
+        swap_aux_mov = self.roi_probe_mov.getArrayRegion(self.canvas_probe, self.img_probe)
+        
+        self.canvas_probe[pos_mov_y:pos_mov_y + size_y,
+                          pos_mov_x:pos_mov_x + size_x] = swap_aux_anc
+        self.canvas_probe[pos_anc_y:pos_anc_y + size_y,
+                          pos_anc_x:pos_anc_x + size_x] = swap_aux_mov
+        self.img_probe.setImage(self.canvas_probe)
+        
+                          
     
     def createCanvasAnchored(self):
         self.canvas_anchored = np.ones( (self.data[0].shape[1]+(2*self.ref), self.data[0].shape[0]+(2*self.ref)), dtype=np.float32 )
