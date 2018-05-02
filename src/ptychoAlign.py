@@ -397,10 +397,7 @@ class PtychoAlign(object):
 
     def mouseClickEventProbe(self, event):
 ##        print help(event)
-        print event.button()
-        print event.buttons()
-        print event.flags()
-        print event.modifiers()
+##        print event.modifiers()
 
         if event.modifiers() == QtCore.Qt.ShiftModifier:
             print "Shift + Click"
@@ -682,28 +679,26 @@ class PtychoAlign(object):
         self.mask /= self.mask.max()
         self.alignImage()
 
-    def swapProbes(self):
-        print "ROI's: mov, anc", self.movable, self.anchored
-        print "canvas probe shape", self.canvas_probe.shape
-        print "ROI's positions", self.roi_probe_mov.pos(), self.roi_probe_anc.pos()
-        print "ROI's sizes", self.roi_probe_mov.size(), self.roi_probe_anc.size()
-
+    def swapProbes(self):                
+        # get current positions (x, y) of ROI's
         pos_mov_x, pos_mov_y = int(self.roi_probe_mov.pos()[0]), int(self.roi_probe_mov.pos()[1])
         pos_anc_x, pos_anc_y = int(self.roi_probe_anc.pos()[0]), int(self.roi_probe_anc.pos()[1])       
-
+        # get ROI's size (x, y)
         size_x = int(self.roi_probe_mov.size()[0])
         size_y = int(self.roi_probe_mov.size()[1])        
-        
+        # store probes in auxiliar variable to swap it after
         swap_aux_anc = self.roi_probe_anc.getArrayRegion(self.canvas_probe, self.img_probe)
         swap_aux_mov = self.roi_probe_mov.getArrayRegion(self.canvas_probe, self.img_probe)
-        
+        # swap the probes
         self.canvas_probe[pos_mov_y:pos_mov_y + size_y,
                           pos_mov_x:pos_mov_x + size_x] = swap_aux_anc
         self.canvas_probe[pos_anc_y:pos_anc_y + size_y,
                           pos_anc_x:pos_anc_x + size_x] = swap_aux_mov
+        # set new array as new Image of ImageItem object
         self.img_probe.setImage(self.canvas_probe)
-        
-                          
+        # swap data in main self.data list
+        self.data[self.movable] = swap_aux_anc
+        self.data[self.anchored] = swap_aux_mov                          
     
     def createCanvasAnchored(self):
         self.canvas_anchored = np.ones( (self.data[0].shape[1]+(2*self.ref), self.data[0].shape[0]+(2*self.ref)), dtype=np.float32 )
