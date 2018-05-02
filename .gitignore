@@ -1,0 +1,4 @@
+# general trhings to ignore
+*.pyc
+/dev
+
