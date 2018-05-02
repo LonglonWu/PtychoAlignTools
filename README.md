@@ -64,7 +64,7 @@ Once opened, the GUI will initialize like shown below:
 * Restore original size and histogram levels of the image displayed in "Pairwise Alignment View" window.
 
 **Preview Global Image**
-* Based on the current positions, combine all the 12 probes and show a preview of the total alignment.
+* Based on the current positions, combine all the probes and show a preview of the total alignment.
  
  ![alt text](https://github.com/ElettraSciComp/PtychoAlignTools/blob/master/pictures/ptychoAlign_GUI_C.png)
 
