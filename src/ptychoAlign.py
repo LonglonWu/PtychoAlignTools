@@ -385,11 +385,8 @@ class PtychoAlign(object):
 
                 
     def keyPressEventProbe(self, event):
-        if type(event) == QtGui.QKeyEvent:
-            if event.key() == QtCore.Qt.Key_S:
-                print "Swap probes"
-                self.swapProbes()
-            elif event.key() == QtCore.Qt.Key_Return or event.key() == QtCore.Qt.Key_Enter:
+        if type(event) == QtGui.QKeyEvent:            
+            if event.key() == QtCore.Qt.Key_Return or event.key() == QtCore.Qt.Key_Enter:                
                 self.refreshView()
                 self.winAlign.setFocus()
 
@@ -403,7 +400,11 @@ class PtychoAlign(object):
         print event.button()
         print event.buttons()
         print event.flags()
-        print help(event.modifiers())
+        print event.modifiers()
+
+        if event.modifiers() == QtCore.Qt.ShiftModifier:
+            print "Shift + Click"
+            self.swapProbes()
         mouse_x = round(event.pos().x())
         mouse_y = round(event.pos().y())
 
