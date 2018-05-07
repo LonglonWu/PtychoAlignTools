@@ -769,7 +769,7 @@ class PtychoAlign(object):
         elif operation == "addition":
             return img0 + img1        
         elif operation == "subtraction":
-            return img0 - img1
+            return img0 - img1        
         elif operation == "mask":            
             if self.mask.all() == 1:
                 print "Please load a mask to perform this operation!"
