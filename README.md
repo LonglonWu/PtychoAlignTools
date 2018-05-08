@@ -99,7 +99,7 @@ In the [auto](https://github.com/ElettraSciComp/PtychoAlignTools/tree/master/src
 
 ## References
 
-[1] Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli, and Sergio Carrato, "*Refining scan positions in Ptychography by using multiple metrics and Machine Learning*", submitted to *[JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about) Proceedings of the 24th International congress on x-ray optics and microanalysis*, 24-29 September 2017, Trieste, Italy ([ICXOM24](https://jinst.sissa.it/jinst/common/JINST_proceedings8.jsp)).
+[1] Francesco Guzzi, George Kourousias, Fulvio Billè, Roberto Pugliese, Carlos Reis, Alessandra Gianoncelli, and Sergio Carrato, "*Refining scan positions in Ptychography through error-minimisation and potential application of Machine Learning*", submitted to *[JINST](https://jinst.sissa.it/jinst/help/helpLoader.jsp?pgType=about) Proceedings of the 24th International congress on x-ray optics and microanalysis*, 24-29 September 2017, Trieste, Italy ([ICXOM24](https://jinst.sissa.it/jinst/common/JINST_proceedings8.jsp)).
 DOI:
 
 **Data and reconstructions as presented in:**
