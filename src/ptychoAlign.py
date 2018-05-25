@@ -551,7 +551,8 @@ class PtychoAlign(object):
 
         self.mask = np.ones((self.data[0].shape[0], self.data[0].shape[1]))
 
-        self.ref = 512
+##        self.ref = 512
+        self.ref = 600
         self.ref_rec = 320
         # To avoid creating ROI objects twice 
         if self.roi_probe_anc == None:
@@ -702,15 +703,23 @@ class PtychoAlign(object):
     
     def createCanvasAnchored(self):
         self.canvas_anchored = np.ones( (self.data[0].shape[1]+(2*self.ref), self.data[0].shape[0]+(2*self.ref)), dtype=np.float32 )
-        self.img_anchored = self.data[self.anchored]        
-        self.canvas_anchored[self.ref:self.ref+self.data[0].shape[1],
-                             self.ref:self.ref+self.data[0].shape[0]] = self.img_anchored        
+        self.img_anchored = self.data[self.anchored]
+        print "self.canvas_anchored.shape", self.canvas_anchored.shape
+        print "self.img_anchored.shape", self.img_anchored.shape 
+##        self.canvas_anchored[self.ref:self.ref+self.data[0].shape[1],
+##                             self.ref:self.ref+self.data[0].shape[0]] = self.img_anchored
+        self.canvas_anchored[self.ref:self.ref+self.data[0].shape[0],
+                             self.ref:self.ref+self.data[0].shape[1]] = self.img_anchored
 
     def createCanvasMovable(self):
         self.canvas_movable = np.ones( (self.data[0].shape[1]+(2*self.ref), self.data[0].shape[0]+(2*self.ref)), dtype=np.float32 )
-        self.img_movable = self.data[self.movable]        
-        self.canvas_movable[self.ref:self.ref+self.data[0].shape[1],
-                            self.ref:self.ref+self.data[0].shape[0]] = self.img_movable       
+        self.img_movable = self.data[self.movable]
+        print "self.canvas_movable.shape", self.canvas_movable.shape
+        print "self.img_movable.shape", self.img_movable.shape 
+##        self.canvas_movable[self.ref:self.ref+self.data[0].shape[1],
+##                            self.ref:self.ref+self.data[0].shape[0]] = self.img_movable
+        self.canvas_movable[self.ref:self.ref+self.data[0].shape[0],
+                            self.ref:self.ref+self.data[0].shape[1]] = self.img_movable
     
     def refreshView(self):
         operation = str(self.combo_operation.currentText()).lower()
@@ -732,10 +741,14 @@ class PtychoAlign(object):
 ##        if operation != 'gk':
 ##            self.refreshView()
         self.canvas_movable[...] = 1
+##        self.canvas_movable[self.ref+self.spin_position_vertical.value():
+##                            self.ref+self.spin_position_vertical.value()+self.data[0].shape[1],
+##                            self.ref+self.spin_position_horizontal.value():
+##                            self.ref+self.spin_position_horizontal.value()+self.data[0].shape[0]] = self.img_movable
         self.canvas_movable[self.ref+self.spin_position_vertical.value():
-                            self.ref+self.spin_position_vertical.value()+self.data[0].shape[1],
+                            self.ref+self.spin_position_vertical.value()+self.data[0].shape[0],
                             self.ref+self.spin_position_horizontal.value():
-                            self.ref+self.spin_position_horizontal.value()+self.data[0].shape[0]] = self.img_movable
+                            self.ref+self.spin_position_horizontal.value()+self.data[0].shape[1]] = self.img_movable
         self.img_align.setImage(self.operations(self.canvas_anchored, self.canvas_movable, operation), autoLevels=False)
         self.updatePosition()        
 
