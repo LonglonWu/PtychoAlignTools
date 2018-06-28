@@ -802,8 +802,10 @@ class PtychoAlign(object):
 ##                s = np.zeros_like(img0)
                 s = np.ones_like(img0)
     ##            print "s shape 1", s.shape
+##                s[self.ref:self.ref+self.data[0].shape[1],
+##                  self.ref:self.ref+self.data[0].shape[0]] = 1*self.mask
                 s[self.ref:self.ref+self.data[0].shape[1],
-                  self.ref:self.ref+self.data[0].shape[0]] = 1*self.mask
+                  self.ref:self.ref+self.data[0].shape[0]] += self.mask
     ##            print "s shape 2", s.shape
                 
                 img0[self.ref:self.ref+self.data[0].shape[1],
@@ -818,6 +820,7 @@ class PtychoAlign(object):
 ##                return (img0 + img1) / s
 ##                return (img0 + img1)
                 return (img0 + img1) / s
+                
             
     def get_xy_pos(self):
         x_pos = np.zeros( (self.row*self.col,) )
