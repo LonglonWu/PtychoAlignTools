@@ -165,15 +165,19 @@ class PtychoAlign(object):
         self.img_align = pg.ImageItem()
         self.plt_align.addItem(self.img_align)
         """Contrast/color control"""
-        self.hist = pg.HistogramLUTItem()
-        self.hist.setImageItem(self.img_align)
-        self.winAlign.addItem(self.hist)
+        self.hist_align = pg.HistogramLUTItem()
+        self.hist_align.setImageItem(self.img_align)
+        self.winAlign.addItem(self.hist_align)
 
         """Window to display the whole Probe"""
         winProbe = pg.GraphicsLayoutWidget(parent=self.winMain)
         self.plt_probe = winProbe.addPlot()
         self.img_probe = pg.ImageItem()
         self.plt_probe.addItem(self.img_probe)
+        """Constrast/color control"""
+        self.hist_probe = pg.HistogramLUTItem()
+        self.hist_probe.setImageItem(self.img_probe)
+        winProbe.addItem(self.hist_probe)
 
         """Table relative Positions [anchored movable (x,y)]"""
         self.tablePositions = pg.TableWidget(editable=False, sortable=False)       
@@ -519,6 +523,7 @@ class PtychoAlign(object):
 ##        self.row = 2
 ##        self.canvas_probe = np.ones((self.data[0].shape[0]*4, self.data[0].shape[1]*3), dtype=np.float32)
         self.canvas_probe = np.ones((self.data[0].shape[0]*self.row, self.data[0].shape[1]*self.col), dtype=np.float32)
+        print "self.data[0].shape", self.data[0].shape
         print "data len", len(self.data)
         print "canvas_probe shape", self.canvas_probe.shape
         
@@ -725,15 +730,15 @@ class PtychoAlign(object):
         operation = str(self.combo_operation.currentText()).lower()
         self.img_align.setImage(self.operations(self.canvas_anchored, self.canvas_movable, operation), autoLevels=False)              
         self.plt_align.autoRange()
-        print self.hist.getLevels()
-        self.hist.autoHistogramRange()
-        LUT = self.hist.getLookupTable(self.img_align.image)
+        print self.hist_align.getLevels()
+        self.hist_align.autoHistogramRange()
+        LUT = self.hist_align.getLookupTable(self.img_align.image)
         print type(LUT), LUT.shape
         img_hist = self.img_align.getHistogram()
         print type(img_hist), img_hist[0].shape, img_hist[1].shape
         print img_hist[0].max(), img_hist[0].min()
         print img_hist[1].max(), img_hist[1].min()
-        self.hist.setLevels(img_hist[0].min(), img_hist[0].max())
+        self.hist_align.setLevels(img_hist[0].min(), img_hist[0].max())
 
 
     def alignImage(self):
@@ -855,7 +860,7 @@ class PtychoAlign(object):
         xmax = np.asarray( [x_pos[i] + self.data[i].shape[0] for i in range( len(self.probes_paths[0]) )] ).max()
         ymax = np.asarray( [y_pos[i] + self.data[i].shape[1] for i in range( len(self.probes_paths[0]) )] ).max()
 
-        c = np.zeros( shape=(xmax,ymax), dtype=np.float32 )
+        c = np.zeros( shape=(xmax,ymax), dtype=np.float32 ) # canvas
 
         s = np.zeros_like( c ) #sample density
 
